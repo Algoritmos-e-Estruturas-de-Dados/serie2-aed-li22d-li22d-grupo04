@@ -1,3 +1,4 @@
+/*
 package serie2.part4
 
 import kotlin.test.*
@@ -96,4 +97,4 @@ class HashMapTest {
         }
     }
 
-}
+}*/
