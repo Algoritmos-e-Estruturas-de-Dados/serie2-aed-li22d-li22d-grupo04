@@ -6,14 +6,14 @@ class SplitEvensAndOddsTest {
 
     @Test
     fun testEmpty() {
-        val l= emptyList<Int>()
+        val l = emptyList<Int>()
         splitEvensAndOdds( l )
-        assertTrue(l.isEmpty() )
+        assertTrue( l.isEmpty() )
     }
 
     @Test
     fun testOneElement(){
-        val l = singletonList( 1)
+        val l = singletonList( 1 )
         splitEvensAndOdds(l)
         assertEquals(listOf( 1 ), l.toList())
     }
