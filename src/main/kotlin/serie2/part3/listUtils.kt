@@ -32,55 +32,70 @@ fun splitEvensAndOdds(list: Node<Int>){
 }
 
 fun <T> intersection(list1: Node<T>, list2: Node<T>, cmp: Comparator<T>): Node<T>? {
-    var current1 = list1
-    var current2 = list2
+    // Nós seguintes às sentinelas das listas 1 e 2
+    var current1 = list1.next
+    var current2 = list2.next
 
+    // Cabeça da nova lista
     var head: Node<T>? = null
 
-    var next1 = current1.next
-    var next2 = current2.next
+    // Passa pelos elementos até voltar ao início numa das listas
+    while(current1 != list1 && current2 != list2) {
+        // Comparação entre os dois valores para ver se são iguais
+        val comparar = cmp.compare(current1?.value, current2?.value)
 
-    while((next1 != null && cmp.compare(current1.value, next1.value) <= 0) ||
-        (next2 != null && cmp.compare(current2.value, next2.value) <= 0)) {
-        if (cmp.compare(current1.value, current2.value) == 0) {
+        when {
+            // Se os valores forem iguais
+            comparar == 0 -> {
+                // Guardar o nó current1
+                val node = current1
 
-            // Remover o nó da lista 1
-            current1.previous?.next = current1.next
-            current1.next?.previous = current1.previous
+                // Próximos valores dos currents
+                val next1 = current1?.next
+                val next2 = current2?.next
 
-            // Remover o nó da lista 2
-            current2.previous?.next = current2.next
-            current2.next?.previous = current2.previous
+                // Remover o nó da lista 1
+                current1?.previous?.next = current1?.next
+                current1?.next?.previous = current1?.previous
 
-            // Se a cabeça estiver vazia, o elemento fica como cabeça
-            if (head == null) {
-                head = current1
-            } else {
-                // Se a cabeça não for seguida, o valor fica a seguir à cabeça
-                if (head.next == null) {
-                    head.next = current1
+                // Remover o nó da lista 2
+                current2?.previous?.next = current2?.next
+                current2?.next?.previous = current2?.previous
+
+                // Se a cabeça estiver vazia, o elemento fica como cabeça
+                if (head == null) {
+                    head = node
+                    head?.previous = null
+                    head?.next = null
                 } else {
-                    var temp = head
-                    while (temp?.next == null) {
-                        temp = temp?.next
+                    // Se a cabeça não for seguida, o valor fica a seguir à cabeça
+                    if (head.next == null) {
+                        head.next = node
+                        head.next?.previous = head
+                        head.next?.next = null
+                    } else {
+                        var temp = head
+                        while (temp?.next != null) {
+                            temp = temp.next
+                        }
+                        temp?.next = node
+                        node?.previous = temp
+                        node?.next = null
                     }
-                    temp.next = current1
-                    current1.previous = temp
-                    current1.next = null
                 }
+                current1 = next1
+                current2 = next2
+
             }
-
-            current1 = current1.next?: break
-            current2 = current2.next?: break
-
-        } else if (cmp.compare(current1.value, current2.value) < 0) {
-            current1 = current1.next?: break
-        } else {
-            current2 = current2.next?: break
+            // Se current1.value < current2.value
+            comparar < 0 -> {
+                current1 = current1?.next
+            }
+            // Se current1.value > current2.value
+            else -> {
+                current2 = current2?.next
+            }
         }
-
-        next1 = current1.next
-        next2 = current2.next
     }
     return head
 }
