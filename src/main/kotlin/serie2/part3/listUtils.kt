@@ -41,7 +41,7 @@ fun <T> intersection(list1: Node<T>, list2: Node<T>, cmp: Comparator<T>): Node<T
     var next2 = current2.next
 
     while((next1 != null && cmp.compare(current1.value, next1.value) <= 0) ||
-          (next2 != null && cmp.compare(current2.value, next2.value) <= 0)) {
+        (next2 != null && cmp.compare(current2.value, next2.value) <= 0)) {
         if (cmp.compare(current1.value, current2.value) == 0) {
 
             // Remover o nó da lista 1
