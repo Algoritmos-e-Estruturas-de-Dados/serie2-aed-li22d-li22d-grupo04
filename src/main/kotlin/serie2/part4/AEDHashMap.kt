@@ -1,8 +1,8 @@
 package serie2.part4
 
-class HashMap<K, V>(initialCapacity: Int = 16, val loadFactor: Float = 0.75f) : MutableMap<K, V> {
+class AEDHashMap<K, V>(initialCapacity: Int = 16, val loadFactor: Float = 0.75f) : AEDMutableMap<K, V> {
     private class HashNode<K, V>(override var key: K,
-                                 override var value: V, var next: HashNode<K, V>? = null) : MutableMap.MutableEntry<K, V> {
+                                 override var value: V, var next: HashNode<K, V>? = null) : AEDMutableMap.MutableEntry<K, V> {
         var hc = key.hashCode()
         override fun setValue(newValue: V): V {
             val old = value
@@ -80,8 +80,8 @@ class HashMap<K, V>(initialCapacity: Int = 16, val loadFactor: Float = 0.75f) : 
         }
     }
 
-    override fun iterator(): Iterator<MutableMap.MutableEntry<K, V>> {
-        val list = mutableListOf<MutableMap.MutableEntry<K, V>>()
+    override fun iterator(): Iterator<AEDMutableMap.MutableEntry<K, V>> {
+        val list = mutableListOf<AEDMutableMap.MutableEntry<K, V>>()
         for (bucket in table) {
             var node = bucket
             while (node != null) {
