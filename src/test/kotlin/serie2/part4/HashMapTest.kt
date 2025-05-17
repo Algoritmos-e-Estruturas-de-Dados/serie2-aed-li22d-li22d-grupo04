@@ -1,3 +1,4 @@
+
 package serie2.part4
 
 import kotlin.test.*
@@ -69,7 +70,7 @@ class HashMapTest {
         assertNull( map.put(3, "three") )
         assertTrue( map.iterator().hasNext() )
         val entries = mutableListOf<MutableMap.MutableEntry<Int, String>>()
-        for(entry in map){
+        for( entry in map){
             entries.add(entry)
         }
         entries.sortedBy { it.key }

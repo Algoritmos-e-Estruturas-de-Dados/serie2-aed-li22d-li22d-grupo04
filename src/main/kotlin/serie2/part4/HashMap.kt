@@ -48,7 +48,7 @@ class HashMap<K, V>(initialCapacity: Int = 16, val loadFactor: Float = 0.75f) : 
                     return null
                 }
                 temp = temp.next
-                }
+            }
         }
         // Chama a função expand para função aumentar a tabela
         if (size >= capacity * loadFactor) {
