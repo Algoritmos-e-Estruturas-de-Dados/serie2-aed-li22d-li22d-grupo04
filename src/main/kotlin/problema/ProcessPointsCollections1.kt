@@ -1,3 +1,5 @@
+package problema2
+
 import java.io.File
 
 data class Point(val x: Float, val y: Float) {
